@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test81</title>
+</head>
+<body>
+    Client2
+    <input type="text" placeholder="Type something..." id="pin">
+    <input type="text" placeholder="Type something..." id="name">
+    <button type="button" onclick="getInputValue();">Get Value</button>
+    
+    <script>
+        function getInputValue(){
+            // Selecting the input element and get its value 
+            var pin = document.getElementById("pin").value;
+            var name = document.getElementById("name").value;
+
+            end = {
+                name: name,
+                pin: pin
+            }
+            // Displaying the value
+            sendMessage(pin);
+        }
+    </script>
+</body>
+<script>
+    // Create WebSocket connection.
+    const socket = new WebSocket('ws://khootbottest.herokuapp.com');
+
+    // Connection opened
+    socket.addEventListener('open', function (event) {
+        console.log('Connected to WS Server')
+    });
+
+    // Listen for messages
+    socket.addEventListener('message', function (event) {
+        console.log('Message from server ', event.data);
+    });
+
+    const sendMessage = (msg) => {
+        socket.send(msg);
+    }
+</script>
+</html>
